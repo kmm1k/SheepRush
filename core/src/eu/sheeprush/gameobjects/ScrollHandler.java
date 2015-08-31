@@ -1,7 +1,6 @@
 package eu.sheeprush.gameobjects;
 
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 
 import eu.sheeprush.helpers.GameScore;
@@ -16,9 +15,7 @@ public class ScrollHandler {
 
 	public ScrollHandler(float gameHeight) {
 		water1 = new Water(0, -1*gameHeight, 180, 35, SCROLL_SPEED, gameHeight);
-		Gdx.app.log("WaterObj", ""+water1);
 		water2 = new Water(0, -2*gameHeight, 180, 35, SCROLL_SPEED, gameHeight);
-		Gdx.app.log("WaterObj", ""+water2);
 		this.gameHeight = gameHeight;
 	}
 
@@ -31,7 +28,6 @@ public class ScrollHandler {
 		}
 		else if(water2.isScrolled()){
 			GameScore.score++;
-			Gdx.app.log("Gamescore", ""+GameScore.score);
 			water2.reset(-1*gameHeight);
 		}
 	}

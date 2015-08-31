@@ -27,7 +27,6 @@ public class Scrollable {
 
     public void update(float delta) {
 
-        /* TODO: move speed and acceleration and velocity to gameworld and update here the pos */
         velocity.add(acceleration.cpy().scl(delta));
         position.add(velocity.cpy().scl(delta));
 

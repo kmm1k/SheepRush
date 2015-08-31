@@ -9,8 +9,9 @@ public class GameScore {
 
     public static int score;
 
-    public static void GameScore() {
+    public GameScore() {
         Gdx.app.log("GameScore", "started");
         score = 0;
     }
+
 }

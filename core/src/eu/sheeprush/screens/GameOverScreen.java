@@ -4,30 +4,29 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 
 import eu.sheeprush.SheepRush;
-import eu.sheeprush.gameworld.GameRenderer;
-import eu.sheeprush.gameworld.GameWorld;
-import eu.sheeprush.helpers.GameInputHandler;
+import eu.sheeprush.gameoverview.GameOverLogic;
+import eu.sheeprush.gameoverview.GameOverRenderer;
 
 /**
- * Created by karl on 29.08.2015.
+ * Created by karl on 31.08.2015.
  */
-public class GameScreen implements Screen {
+public class GameOverScreen implements Screen {
 
-    private GameWorld world;
-    private GameRenderer renderer;
+    private GameOverLogic gameOverLogic;
+    private GameOverRenderer gameOverRenderer;
     private float runTime;
     private SheepRush sheepRush;
 
-    public GameScreen(SheepRush sheepRush) {
+    public GameOverScreen(SheepRush sheepRush) {
         this.sheepRush = sheepRush;
         float screenWidth = Gdx.graphics.getWidth();
         float screenHeight = Gdx. graphics.getHeight();
         float gameWidth = 180;
         float gameHeight = screenHeight / (screenWidth / gameWidth);
         int midX = (int) gameWidth/2;
-        world = new GameWorld(midX, screenWidth, gameHeight);
-        renderer = new GameRenderer(world, (int) gameHeight, midX);
-        Gdx.input.setInputProcessor(new GameInputHandler(world));
+        gameOverLogic = new GameOverLogic(midX, screenWidth, gameHeight);
+        gameOverRenderer = new GameOverRenderer(gameOverLogic, (int) gameHeight, midX);
+
     }
 
     @Override
@@ -38,9 +37,8 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
         runTime += delta;
-        world.update(delta);
-        renderer.render(runTime);
-        if (world.isFailed()) sheepRush.setScreen(sheepRush.gameOverScreen);
+        gameOverLogic.update(delta);
+        gameOverRenderer.render(runTime);
     }
 
     @Override

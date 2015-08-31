@@ -17,12 +17,14 @@ public class GameWorld {
     private ScrollHandler scrollHandler;
     private Vector2 speed;
     private float jumpTime;
+    private boolean failed;
 
     public GameWorld(int midX, float screenWidth, float gameHeight) {
         gameScore = new GameScore();
         speed = new Vector2(0, 1.0f);
         sheep = new Sheep((int) (midX-35/2f), (int) gameHeight - 60, 35, 60);
         scrollHandler = new ScrollHandler(gameHeight);
+        failed = false;
     }
 
     public float getSpeed() {
@@ -33,6 +35,10 @@ public class GameWorld {
         return sheep;
     }
 
+    public boolean isFailed() {
+        return failed;
+    }
+
     public void update(float delta) {
         /*if(delta > .15f){
             delta = .15f;
@@ -40,6 +46,7 @@ public class GameWorld {
         scrollHandler.update(delta);
         if (scrollHandler.collides(sheep.getSheepBox()) && sheep.isOnGround()) {
             scrollHandler.stop();
+            failed = true;
         }
 
         //Gdx.app.log("gameWorld", ""+scrollHandler.getVelocityY());

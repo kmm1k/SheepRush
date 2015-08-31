@@ -1,6 +1,5 @@
 package eu.sheeprush.gameobjects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -29,8 +28,6 @@ public class Water extends Scrollable{
     }
 
     public boolean collides(Rectangle sheep){
-        Gdx.app.log("Rectangle", "sheep: " + sheep);
-        Gdx.app.log("Rectangle", "water: " + waterBox);
         return Intersector.overlaps(sheep, waterBox);
     }
 
