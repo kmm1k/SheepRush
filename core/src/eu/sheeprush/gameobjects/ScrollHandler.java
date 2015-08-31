@@ -4,6 +4,8 @@ package eu.sheeprush.gameobjects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 
+import eu.sheeprush.helpers.GameScore;
+
 public class ScrollHandler {
 
 	private Water water1, water2;
@@ -13,9 +15,9 @@ public class ScrollHandler {
 	//public static final int WB_GAP = -270;
 
 	public ScrollHandler(float gameHeight) {
-		water1 = new Water(0, 0, 180, 35, SCROLL_SPEED, gameHeight);
+		water1 = new Water(0, -1*gameHeight, 180, 35, SCROLL_SPEED, gameHeight);
 		Gdx.app.log("WaterObj", ""+water1);
-		water2 = new Water(0, -1*gameHeight, 180, 35, SCROLL_SPEED, gameHeight);
+		water2 = new Water(0, -2*gameHeight, 180, 35, SCROLL_SPEED, gameHeight);
 		Gdx.app.log("WaterObj", ""+water2);
 		this.gameHeight = gameHeight;
 	}
@@ -24,9 +26,12 @@ public class ScrollHandler {
 		water1.update(delta);
 		water2.update(delta);
 		if(water1.isScrolled()){
+			GameScore.score++;
 			water1.reset(-1*gameHeight);
 		}
 		else if(water2.isScrolled()){
+			GameScore.score++;
+			Gdx.app.log("Gamescore", ""+GameScore.score);
 			water2.reset(-1*gameHeight);
 		}
 	}
@@ -46,6 +51,9 @@ public class ScrollHandler {
 
 	public boolean collides(Rectangle sheep){
 		return ( water2.collides(sheep) || water1.collides(sheep));
+	}
+	public float getVelocityY() {
+		return water1.getVelocityY();
 	}
 
 }

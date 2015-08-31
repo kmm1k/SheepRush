@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import eu.sheeprush.gameobjects.Sheep;
 import eu.sheeprush.gameobjects.Water;
 import eu.sheeprush.helpers.AssetLoader;
+import eu.sheeprush.helpers.GameScore;
 
 /**
  * Created by karl on 29.08.2015.
@@ -66,6 +67,7 @@ public class GameRenderer {
         drawWater(runTime, water1);
         drawWater(runTime, water2);
         drawSheep(runTime);
+        AssetLoader.font20.draw(batcher, ""+GameScore.score, 20, 20);
         batcher.end();
     }
 

@@ -18,7 +18,7 @@ public class Scrollable {
     public Scrollable(float x, float y, int width, int height, float scrollSpeed, float gameHeight) {
         position = new Vector2(x, y);
         velocity = new Vector2(0, scrollSpeed);
-        acceleration = new Vector2(0, 4);
+        acceleration = new Vector2(0, 8);
         this.width = width;
         this.height = height;
         this.gameHeight = gameHeight;
