@@ -1,0 +1,70 @@
+
+atlas.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+vesitaust1
+  rotate: false
+  xy: 1, 1209
+  size: 2000, 200
+  orig: 2000, 200
+  offset: 0, 0
+  index: -1
+vesitaust2
+  rotate: false
+  xy: 1, 1007
+  size: 2000, 200
+  orig: 2000, 200
+  offset: 0, 0
+  index: -1
+vesitaust3
+  rotate: false
+  xy: 1, 805
+  size: 2000, 200
+  orig: 2000, 200
+  offset: 0, 0
+  index: -1
+vesitaust4
+  rotate: false
+  xy: 1, 603
+  size: 2000, 200
+  orig: 2000, 200
+  offset: 0, 0
+  index: -1
+sheep4.1
+  rotate: false
+  xy: 1, 1
+  size: 363, 600
+  orig: 600, 600
+  offset: 119, 0
+  index: -1
+sheep4.2
+  rotate: false
+  xy: 366, 28
+  size: 363, 573
+  orig: 600, 600
+  offset: 119, 13
+  index: -1
+sheep4.jump
+  rotate: false
+  xy: 731, 43
+  size: 363, 558
+  orig: 600, 600
+  offset: 119, 0
+  index: -1
+button.down
+  rotate: false
+  xy: 2003, 1401
+  size: 8, 8
+  split: 2, 2, 2, 2
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+button.up
+  rotate: false
+  xy: 366, 18
+  size: 8, 8
+  split: 2, 2, 2, 2
+  orig: 8, 8
+  offset: 0, 0
+  index: -1

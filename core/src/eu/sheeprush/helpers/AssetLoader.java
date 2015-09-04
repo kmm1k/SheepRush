@@ -1,6 +1,7 @@
 package eu.sheeprush.helpers;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -13,16 +14,17 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
  */
 public class AssetLoader {
 
-    private static TextureAtlas atlas;
+    public static TextureAtlas atlas;
     public static TextureRegion sheepFrame1, sheepFrame2, sheepJumpFrame;
     public static TextureRegion waterFrame1, waterFrame2, waterFrame3, waterFrame4;
     public static Animation sheepAnimation, waterAnimation;
     private static FreeTypeFontGenerator generator;
     private static FreeTypeFontGenerator.FreeTypeFontParameter parameter;
     public static BitmapFont font20;
+    public static BitmapFont font20b;
 
     public static void load() {
-        atlas = new TextureAtlas(Gdx.files.internal("textures/atlas.txt"));
+        atlas = new TextureAtlas(Gdx.files.internal("textures/atlas.atlas"));
         sheepFrame1 = atlas.createSprite("sheep4.1");
         sheepFrame2 = atlas.createSprite("sheep4.2");
         waterFrame1 = atlas.createSprite("vesitaust1");
@@ -44,7 +46,9 @@ public class AssetLoader {
         parameter.minFilter = Texture.TextureFilter.MipMapNearestNearest;
         parameter.magFilter = Texture.TextureFilter.MipMapNearestNearest;
         font20 = generator.generateFont(parameter);
-
+        parameter.color = Color.BLACK;
+        parameter.flip = false;
+        font20b = generator.generateFont(parameter);
 
         TextureRegion[] sheep = {sheepFrame1, sheepFrame2};
         sheepAnimation = new Animation(0.10f, sheep);
