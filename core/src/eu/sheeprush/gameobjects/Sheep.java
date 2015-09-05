@@ -23,7 +23,7 @@ public class Sheep {
         this.width = width;
         position = new Vector2(x, y);
         sheepBox = new Rectangle();
-        sheepBox.set(x, y, width, height);
+        sheepBox.set(x, y, width, height-40);
     }
 
     public int getWidth() {

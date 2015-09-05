@@ -3,7 +3,6 @@ package eu.sheeprush.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -24,7 +23,7 @@ import eu.sheeprush.helpers.GameScore;
 public class GameOverScreen implements Screen {
 
     private final Table table;
-    private final Skin skin;
+    private Skin skin;
     private final TextButton buttonReplay;
     private final TextButton buttonMenu;
     private int savedHighScore;
@@ -36,6 +35,7 @@ public class GameOverScreen implements Screen {
 
     public GameOverScreen(SheepRush sheepRush) {
         this.sheepRush = sheepRush;
+        this.skin = AssetLoader.skin;
 
         Preferences prefs = Gdx.app.getPreferences("preferences");
         savedHighScore = prefs.getInteger("score", 0);
@@ -52,20 +52,15 @@ public class GameOverScreen implements Screen {
 
         Gdx.input.setInputProcessor(stage);
 
-        skin = new Skin(AssetLoader.atlas);
         table = new Table(skin);
         table.setBounds(0, 0, screenWidth, screenHeight);
 
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.up = skin.getDrawable("button.up");
-        textButtonStyle.down = skin.getDrawable("button.down");
-        textButtonStyle.pressedOffsetX = 5;
-        textButtonStyle.font = AssetLoader.font20buttons;
 
-        buttonReplay = new TextButton("Replay", textButtonStyle);
+
+        buttonReplay = new TextButton("Replay", skin);
         buttonReplay.pad(20);
 
-        buttonMenu = new TextButton("Menu", textButtonStyle);
+        buttonMenu = new TextButton("Menu", skin);
         buttonMenu.pad(20);
 
         table.background(skin.getDrawable("modal"));
@@ -76,9 +71,8 @@ public class GameOverScreen implements Screen {
             table.setY((screenHeight-(screenHeight/1.5f))/2);
         }
 
-        Label.LabelStyle labelStyle = new Label.LabelStyle(AssetLoader.font20buttons, Color.WHITE);
-        Label scoreLabel = new Label("Score : " + GameScore.score, labelStyle);
-        Label highScoreLabel = new Label("High score : " + savedHighScore, labelStyle);
+        Label scoreLabel = new Label("Score : " + GameScore.score, skin);
+        Label highScoreLabel = new Label("High score : " + savedHighScore, skin);
         table.add(highScoreLabel);
         table.row();
         table.add(scoreLabel);
@@ -87,7 +81,6 @@ public class GameOverScreen implements Screen {
         table.row();
         table.add(buttonMenu).prefWidth(screenWidth-60).space(10);
         stage.addActor(table);
-        Gdx.app.log("gameover", "made table");
     }
 
     @Override

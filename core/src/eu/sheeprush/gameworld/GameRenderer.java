@@ -68,7 +68,7 @@ public class GameRenderer {
         drawWater(runTime, water1);
         drawWater(runTime, water2);
         drawSheep(runTime);
-        AssetLoader.font20.draw(batcher, ""+GameScore.score, 20, 20);
+        AssetLoader.scoreFont.draw(batcher, ""+GameScore.score, 20, 20);
         batcher.end();
     }
 

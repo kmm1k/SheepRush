@@ -3,7 +3,6 @@ package eu.sheeprush.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -23,7 +22,7 @@ public class MenuScreen implements Screen {
 
     private final SheepRush sheepRush;
     private final Stage stage;
-    private final Skin skin;
+    private Skin skin;
     private final Table table;
     private final TextButton buttonPlay;
     private final TextButton buttonExit;
@@ -31,6 +30,7 @@ public class MenuScreen implements Screen {
 
     public MenuScreen(SheepRush sheepRush) {
         this.sheepRush = sheepRush;
+        this.skin = AssetLoader.skin;
 
         Preferences prefs = Gdx.app.getPreferences("preferences");
         savedHighScore = prefs.getInteger("score", 0);
@@ -42,24 +42,19 @@ public class MenuScreen implements Screen {
 
         Gdx.input.setInputProcessor(stage);
 
-        skin = new Skin(AssetLoader.atlas);
+
         table = new Table(skin);
         table.setBounds(0, 0, screenWidth, screenHeight);
 
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.up = skin.getDrawable("button.up");
-        textButtonStyle.down = skin.getDrawable("button.down");
-        textButtonStyle.pressedOffsetX = 5;
-        textButtonStyle.font = AssetLoader.font20buttons;
 
-        buttonPlay = new TextButton("Play", textButtonStyle);
+
+        buttonPlay = new TextButton("Play", skin);
         buttonPlay.pad(20);
 
-        buttonExit = new TextButton("Exit", textButtonStyle);
+        buttonExit = new TextButton("Exit", skin);
         buttonExit.pad(20);
 
-        Label.LabelStyle labelStyle = new Label.LabelStyle(AssetLoader.font20buttons, Color.WHITE);
-        Label highScoreLabel = new Label("High score : " + savedHighScore, labelStyle);
+        Label highScoreLabel = new Label("High score : " + savedHighScore, skin);
 
         table.add(highScoreLabel);
         table.row();
