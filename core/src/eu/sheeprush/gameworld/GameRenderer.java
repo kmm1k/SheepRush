@@ -24,7 +24,7 @@ public class GameRenderer {
     private OrthographicCamera cam;
     private SpriteBatch batcher;
     private Animation sheepAnimation, waterAnimation;
-    private TextureRegion sheepJump, frame;
+    private TextureRegion sheepJump, frame, waterBg;
     private Sheep sheep;
     private Water water1, water2;
 
@@ -56,6 +56,7 @@ public class GameRenderer {
     private void initAssets() {
         sheepAnimation = AssetLoader.sheepAnimation;
         sheepJump = AssetLoader.sheepJumpFrame;
+        waterBg = AssetLoader.waterBg;
         waterAnimation = AssetLoader.waterAnimation;
     }
 
@@ -78,9 +79,7 @@ public class GameRenderer {
         float x = water.getX();
         float y = water.getY();
 
-        batcher.draw(waterAnimation.getKeyFrame(runTime),
-                x, y,
-                width, height);
+        batcher.draw(waterBg, x, y, width, height);
     }
 
     public void drawSheep(float runTime) {

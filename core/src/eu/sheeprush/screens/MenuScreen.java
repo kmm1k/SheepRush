@@ -1,11 +1,14 @@
 package eu.sheeprush.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -24,9 +27,14 @@ public class MenuScreen implements Screen {
     private final Table table;
     private final TextButton buttonPlay;
     private final TextButton buttonExit;
+    private int savedHighScore;
 
     public MenuScreen(SheepRush sheepRush) {
         this.sheepRush = sheepRush;
+
+        Preferences prefs = Gdx.app.getPreferences("preferences");
+        savedHighScore = prefs.getInteger("score", 0);
+
         float screenWidth = Gdx.graphics.getWidth();
         float screenHeight = Gdx.graphics.getHeight();
 
@@ -42,7 +50,7 @@ public class MenuScreen implements Screen {
         textButtonStyle.up = skin.getDrawable("button.up");
         textButtonStyle.down = skin.getDrawable("button.down");
         textButtonStyle.pressedOffsetX = 5;
-        textButtonStyle.font = AssetLoader.font20b;
+        textButtonStyle.font = AssetLoader.font20buttons;
 
         buttonPlay = new TextButton("Play", textButtonStyle);
         buttonPlay.pad(20);
@@ -50,9 +58,14 @@ public class MenuScreen implements Screen {
         buttonExit = new TextButton("Exit", textButtonStyle);
         buttonExit.pad(20);
 
-        table.add(buttonPlay).space(10);
+        Label.LabelStyle labelStyle = new Label.LabelStyle(AssetLoader.font20buttons, Color.WHITE);
+        Label highScoreLabel = new Label("High score : " + savedHighScore, labelStyle);
+
+        table.add(highScoreLabel);
         table.row();
-        table.add(buttonExit).space(10);
+        table.add(buttonPlay).prefWidth(screenWidth - 40).space(10);
+        table.row();
+        table.add(buttonExit).prefWidth(screenWidth-40).space(10);
         stage.addActor(table);
     }
 

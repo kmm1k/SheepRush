@@ -14,8 +14,8 @@ public class ScrollHandler {
 	//public static final int WB_GAP = -270;
 
 	public ScrollHandler(float gameHeight) {
-		water1 = new Water(0, -1*gameHeight, 180, 35, SCROLL_SPEED, gameHeight);
-		water2 = new Water(0, -2*gameHeight, 180, 35, SCROLL_SPEED, gameHeight);
+		water1 = new Water(0, -1*gameHeight+35, 180, 35, SCROLL_SPEED, gameHeight);
+		water2 = new Water(0, -2*gameHeight+35, 180, 35, SCROLL_SPEED, gameHeight);
 		this.gameHeight = gameHeight;
 	}
 
