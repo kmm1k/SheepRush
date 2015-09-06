@@ -3,17 +3,22 @@ package eu.sheeprush.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import eu.sheeprush.SheepRush;
 import eu.sheeprush.gameoverview.GameOverLogic;
 import eu.sheeprush.gameoverview.GameOverRenderer;
+import eu.sheeprush.gameworld.GameRenderer;
 import eu.sheeprush.helpers.AssetLoader;
 import eu.sheeprush.helpers.GameScore;
 
@@ -23,6 +28,7 @@ import eu.sheeprush.helpers.GameScore;
 public class GameOverScreen implements Screen {
 
     private final Table table;
+    private final OrthographicCamera cam;
     private Skin skin;
     private final TextButton buttonReplay;
     private final TextButton buttonMenu;
@@ -32,8 +38,17 @@ public class GameOverScreen implements Screen {
     private float runTime;
     private SheepRush sheepRush;
     private final Stage stage;
+    private GameRenderer gameRenderer;
 
-    public GameOverScreen(SheepRush sheepRush) {
+    public GameOverScreen(SheepRush sheepRush, GameRenderer gameRenderer) {
+        float screenWidth = Gdx.graphics.getWidth();
+        float screenHeight = Gdx. graphics.getHeight();
+        float gameWidth = 540;
+        float gameHeight = screenHeight / (screenWidth / gameWidth);
+        cam = new OrthographicCamera();
+        cam.setToOrtho(false, gameWidth, gameHeight);
+        FitViewport viewp = new FitViewport(gameWidth,gameHeight, cam);
+        this.gameRenderer = gameRenderer;
         this.sheepRush = sheepRush;
         this.skin = AssetLoader.skin;
 
@@ -45,31 +60,28 @@ public class GameOverScreen implements Screen {
             savedHighScore = GameScore.score;
         }
 
-        float screenWidth = Gdx.graphics.getWidth();
-        float screenHeight = Gdx.graphics.getHeight();
 
-        stage = new Stage();
+        stage = new Stage(viewp);
 
         Gdx.input.setInputProcessor(stage);
 
         table = new Table(skin);
-        table.setBounds(0, 0, screenWidth, screenHeight);
-
+        table.setBounds(0, 0, gameWidth, gameHeight);
 
 
         buttonReplay = new TextButton("Replay", skin);
-        buttonReplay.pad(20);
+        buttonReplay.pad(10);
 
         buttonMenu = new TextButton("Menu", skin);
-        buttonMenu.pad(20);
+        buttonMenu.pad(10);
 
+        float modalX = (gameWidth - (240 + (gameWidth - 240) / 1.5f)) / 2;
+        float modalY = (gameHeight - (320 + (gameHeight - 320) / 2)) / 2;
         table.background(skin.getDrawable("modal"));
-        if (screenHeight/1.5f > 200){
-            table.setHeight(screenHeight/1.5f);
-            table.setWidth(screenWidth-40);
-            table.setX(20);
-            table.setY((screenHeight-(screenHeight/1.5f))/2);
-        }
+        table.setHeight(320 + (gameHeight - 320) / 2);
+        table.setWidth(240 + (gameWidth - 240) / 1.5f);
+        table.setX(modalX);
+        table.setY(gameHeight);
 
         Label scoreLabel = new Label("Score : " + GameScore.score, skin);
         Label highScoreLabel = new Label("High score : " + savedHighScore, skin);
@@ -77,9 +89,12 @@ public class GameOverScreen implements Screen {
         table.row();
         table.add(scoreLabel);
         table.row();
-        table.add(buttonReplay).prefWidth(screenWidth-60).space(10);
+        table.add(buttonReplay).prefWidth(gameWidth - 60).space(10);
         table.row();
-        table.add(buttonMenu).prefWidth(screenWidth-60).space(10);
+        table.add(buttonMenu).prefWidth(gameWidth - 60).space(10);
+        table.addAction(Actions.moveTo(modalX,
+                modalY,
+                0.7f, Interpolation.bounceOut));
         stage.addActor(table);
     }
 
@@ -115,6 +130,9 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        /*Gdx.gl.glClearColor(122 / 255.0f, 222/ 255.0f, 75/ 255.0f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);*/
+        gameRenderer.render(delta);
         stage.act(delta);
         stage.draw();
     }

@@ -27,10 +27,12 @@ public class AssetLoader {
     public static BitmapFont scoreFont;
     private static BitmapFont buttonFont, labelFont;
 
+
     public static void load() {
         atlas = new TextureAtlas(Gdx.files.internal("textures/atlas.atlas"));
         skin = new Skin();
         createSprites();
+
         createFonts();
         skin.add("scoreFont", scoreFont, BitmapFont.class);
         skin.add("buttonFont", buttonFont, BitmapFont.class);
@@ -45,19 +47,21 @@ public class AssetLoader {
 
     }
 
+
     private static void createFonts() {
         generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/triple_dot_digital-7.ttf"));
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 20;
+        parameter.size = 24;
         parameter.minFilter = Texture.TextureFilter.Nearest;
         parameter.magFilter = Texture.TextureFilter.Nearest;
         parameter.flip = true;
         scoreFont = generator.generateFont(parameter);
         parameter.flip = false;
+        parameter.size = 20;
         parameter.borderWidth = 1;
         parameter.borderColor = Color.CYAN;
         buttonFont = generator.generateFont(parameter);
-        parameter.size = 24;
+        parameter.size = 20;
         parameter.borderWidth = 1.4f;
         labelFont = generator.generateFont(parameter);
         generator.dispose();

@@ -41,7 +41,7 @@ public class GameScreen implements Screen {
         world.update(delta);
         renderer.render(runTime);
         if (world.isFailed()){
-            sheepRush.setScreen(new GameOverScreen(sheepRush));
+            sheepRush.setScreen(new GameOverScreen(sheepRush, renderer));
             dispose();
         }
     }
