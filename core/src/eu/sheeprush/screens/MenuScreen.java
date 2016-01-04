@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import eu.sheeprush.SheepRush;
+import eu.sheeprush.helpers.AssetLoader;
 
 /**
  * Created by karl on 31.08.2015.
@@ -58,6 +59,7 @@ public class MenuScreen extends AbsScreen implements Screen {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                AssetLoader.swooshSound.play();
                 sheepRush.setScreen(new GameScreen(sheepRush));
                 stage.dispose();
                 dispose();

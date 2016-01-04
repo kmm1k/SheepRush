@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import eu.sheeprush.gameobjects.ScrollHandler;
 import eu.sheeprush.gameobjects.Sheep;
 import eu.sheeprush.gameobjects.Water;
+import eu.sheeprush.helpers.AssetLoader;
 import eu.sheeprush.helpers.GameScore;
 
 /**
@@ -46,6 +47,7 @@ public class GameWorld {
         scrollHandler.update(delta);
         if (scrollHandler.collides(sheep.getSheepBox()) && sheep.isOnGround()) {
             scrollHandler.stop();
+            AssetLoader.gameOverSound.play(1.0f);
             failed = true;
         }
 

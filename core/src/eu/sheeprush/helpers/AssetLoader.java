@@ -1,6 +1,7 @@
 package eu.sheeprush.helpers;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -26,6 +27,9 @@ public class AssetLoader {
     public static Skin skin;
     public static BitmapFont scoreFont;
     private static BitmapFont buttonFont, labelFont;
+    public static Sound pointGetSound;
+    public static Sound gameOverSound;
+    public static Sound swooshSound;
 
 
     public static void load() {
@@ -44,6 +48,10 @@ public class AssetLoader {
         TextureRegion[] sheep = {sheepFrame1, sheepFrame2};
         sheepAnimation = new Animation(0.10f, sheep);
         sheepAnimation.setPlayMode(Animation.PlayMode.LOOP);
+
+        pointGetSound = Gdx.audio.newSound(Gdx.files.internal("sounds/point_get.ogg"));
+        gameOverSound = Gdx.audio.newSound(Gdx.files.internal("sounds/game_over2.ogg"));
+        swooshSound = Gdx.audio.newSound(Gdx.files.internal("sounds/swoosh.ogg"));
 
     }
 
@@ -76,5 +84,7 @@ public class AssetLoader {
 
     public static void dispose() {
         atlas.dispose();
+        pointGetSound.dispose();
+        gameOverSound.dispose();
     }
 }
