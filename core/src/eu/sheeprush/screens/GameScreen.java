@@ -1,5 +1,6 @@
 package eu.sheeprush.screens;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 
@@ -37,8 +38,14 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        if(delta > .1f){
+            delta = .1f;
+        }
         runTime += delta;
-        world.update(delta);
+        Application.ApplicationType appType = Gdx.app.getType();
+        if (appType == Application.ApplicationType.Android || appType == Application.ApplicationType.iOS) {
+            world.update(delta, Gdx.input.getAccelerometerX());
+        }
         renderer.render(runTime);
         if (world.isFailed()){
             sheepRush.setScreen(new GameOverScreen(sheepRush, renderer));

@@ -10,12 +10,14 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Sheep {
 
+    public static final float SHEEP_MOVE_VELOCITY = 200;
     private int width;
     private int height;
     private Vector2 position;
 
     private Rectangle sheepBox;
     private boolean onGround;
+    public Vector2 velocity;
 
     public Sheep(int x, int y, int width, int height) {
         onGround = true;
@@ -24,6 +26,10 @@ public class Sheep {
         position = new Vector2(x, y);
         sheepBox = new Rectangle();
         sheepBox.set(x, y, width, height-40);
+        velocity = new Vector2();
+    }
+    public void update(float delta) {
+        position.add(velocity.x * delta, velocity.y * delta);
     }
 
     public int getWidth() {

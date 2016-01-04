@@ -40,7 +40,7 @@ public class GameWorld {
         return failed;
     }
 
-    public void update(float delta) {
+    public void update(float delta, float accelerometerX) {
         /*if(delta > .15f){
             delta = .15f;
         }*/
@@ -59,6 +59,8 @@ public class GameWorld {
                 sheep.setOnGround(true);
             }
         }
+        sheep.velocity.x = -accelerometerX / 10 * sheep.SHEEP_MOVE_VELOCITY;
+        sheep.update(delta);
     }
 
     public Water getWater1() {
