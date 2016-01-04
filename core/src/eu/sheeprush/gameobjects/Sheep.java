@@ -30,6 +30,7 @@ public class Sheep {
     }
     public void update(float delta) {
         position.add(velocity.x * delta, velocity.y * delta);
+        sheepBox.set(position.x, position.y, width, height-40);
     }
 
     public int getWidth() {

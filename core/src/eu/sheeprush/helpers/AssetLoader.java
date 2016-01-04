@@ -23,7 +23,7 @@ public class AssetLoader {
     private static FreeTypeFontGenerator.FreeTypeFontParameter parameter;
     public static BitmapFont font20;
     public static BitmapFont font20buttons;
-    public static TextureRegion waterBg;
+    public static TextureRegion waterBg, coinTexture;
     public static Skin skin;
     public static BitmapFont scoreFont;
     private static BitmapFont buttonFont, labelFont;
@@ -78,8 +78,9 @@ public class AssetLoader {
     private static void createSprites() {
         sheepFrame1 = atlas.createSprite("sheep4.1");
         sheepFrame2 = atlas.createSprite("sheep4.2");
-        waterBg = atlas.createSprite("water");
         sheepJumpFrame = atlas.createSprite("sheep4.jump");
+        waterBg = atlas.createSprite("water");
+        coinTexture = atlas.createSprite("coin");
     }
 
     public static void dispose() {

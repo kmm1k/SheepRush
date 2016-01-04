@@ -2,6 +2,7 @@ package eu.sheeprush.gameworld;
 
 import com.badlogic.gdx.math.Vector2;
 
+import eu.sheeprush.gameobjects.Coin;
 import eu.sheeprush.gameobjects.ScrollHandler;
 import eu.sheeprush.gameobjects.Sheep;
 import eu.sheeprush.gameobjects.Water;
@@ -45,10 +46,16 @@ public class GameWorld {
             delta = .15f;
         }*/
         scrollHandler.update(delta);
-        if (scrollHandler.collides(sheep.getSheepBox()) && sheep.isOnGround()) {
+        if (scrollHandler.waterCollision(sheep.getSheepBox()) && sheep.isOnGround()) {
             scrollHandler.stop();
             AssetLoader.gameOverSound.play(1.0f);
             failed = true;
+        }
+
+        if (scrollHandler.coinCollision(sheep.getSheepBox())) {
+            GameScore.score++;
+            AssetLoader.pointGetSound.play(1.0f);
+            scrollHandler.getCoin().resetDefault();
         }
 
         //Gdx.app.log("gameWorld", ""+scrollHandler.getVelocityY());
@@ -69,5 +76,9 @@ public class GameWorld {
 
     public Water getWater2() {
         return scrollHandler.getWater2();
+    }
+
+    public Coin getCoin() {
+        return scrollHandler.getCoin();
     }
 }

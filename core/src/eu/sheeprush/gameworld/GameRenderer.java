@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import eu.sheeprush.gameobjects.Coin;
 import eu.sheeprush.gameobjects.Sheep;
 import eu.sheeprush.gameobjects.Water;
 import eu.sheeprush.helpers.AssetLoader;
@@ -24,9 +25,10 @@ public class GameRenderer {
     private OrthographicCamera cam;
     private SpriteBatch batcher;
     private Animation sheepAnimation, waterAnimation;
-    private TextureRegion sheepJump, frame, waterBg;
+    private TextureRegion sheepJump, frame, waterBg, coinTexture;
     private Sheep sheep;
     private Water water1, water2;
+    private Coin coin;
 
     public GameRenderer(GameWorld world, int gameHeight, int midX) {
         Gdx.app.log("gamerenderer", "init");
@@ -51,12 +53,14 @@ public class GameRenderer {
         sheep = world.getSheep();
         water1 = world.getWater1();
         water2 = world.getWater2();
+        coin = world.getCoin();
     }
 
     private void initAssets() {
         sheepAnimation = AssetLoader.sheepAnimation;
         sheepJump = AssetLoader.sheepJumpFrame;
         waterBg = AssetLoader.waterBg;
+        coinTexture = AssetLoader.coinTexture;
         waterAnimation = AssetLoader.waterAnimation;
     }
 
@@ -67,6 +71,7 @@ public class GameRenderer {
         batcher.enableBlending();
         drawWater(runTime, water1);
         drawWater(runTime, water2);
+        drawCoin(runTime);
         drawSheep(runTime);
         AssetLoader.scoreFont.draw(batcher, ""+GameScore.score, 20, 20);
         batcher.end();
@@ -80,6 +85,15 @@ public class GameRenderer {
         float y = water.getY();
 
         batcher.draw(waterBg, x, y, width, height);
+    }
+
+    public void drawCoin(float runTime) {
+        float width = coin.getWidth();
+        float height = coin.getHeight();
+        float x = coin.getX();
+        float y = coin.getY();
+
+        batcher.draw(coinTexture, x, y, width, height);
     }
 
     public void drawSheep(float runTime) {
